@@ -5,7 +5,8 @@ import Dashboard from './Dashboard';
 
 class App extends Component {
   render() {
-    let wings = this.state.props.forEach((wing) => {
+    let wings = false;
+    wings = this.state.props.wings.forEach((wing) => {
       <Wing data={wing} />
     })
 

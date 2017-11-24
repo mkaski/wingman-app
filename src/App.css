@@ -1,5 +1,6 @@
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -22,9 +23,14 @@
   font-size: large;
 }
 
-.Finnair {
+.Wingman {
+  width:40%;
   background: #f1f4f7;
   color: #0d1973;
+}
+
+.Dashboard {
+  width:60%;
 }
 
 @keyframes App-logo-spin {
