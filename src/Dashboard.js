@@ -15,7 +15,7 @@ class Dashboard extends Component {
     }
   }
   updateEvents() {
-    console.log('asd');
+
   }
   render() {
     const pools = this.state.data.reduce((arrayOfCategories, wing) => {
@@ -27,15 +27,12 @@ class Dashboard extends Component {
       }
       return arrayOfCategories;
     }, []);
-    console.log(pools);
     const activeEvents = this.state.activeEvents.map((e) => {
       return <Event data={e}> </Event>;
     });
     const externalPools = Object.keys(pools).map((key) => {
       return <Pool data={pools[key]}></Pool>
     });
-    console.log(externalPools);
-
     return (
       <div className="Dashboard">
         <div className="Pools">

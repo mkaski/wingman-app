@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,700');
+
+body {
+  font-family: 'Noto Sans';
+}
+
 .App {
   display: flex;
   flex-direction: row;
@@ -19,6 +25,8 @@
   font-size: 3rem;
   font-style: italic;
   letter-spacing: 3px;
+  line-height: 1;
+  margin-bottom:0;
 }
 
 .App-intro {
@@ -26,7 +34,7 @@
 }
 
 .Wingman {
-  width:50%;
+  width:60%;
   background: #f1f4f7;
   color: #0d1973;
   overflow-y: scroll;
@@ -44,14 +52,15 @@
   padding:1rem;
   margin:1rem;
   font-size:13px;
+  box-shadow: 1px 2px 15px rgba(0,0,0,.1);
 }
 
 .Wing-wrapper {
-  width:50%;
+  width:25%;
 }
 
 .Score {
-  margin:3rem 2rem;
+  margin:2rem 1rem;
   text-align: center;
 }
 .Score span.desc {
@@ -68,14 +77,21 @@
   margin-top:4rem 0 1rem;
 }
 
-.upvote, .downvote {
+.upvote-wrap, .downvote-wrap {
   display: inline-block;
   width:50%;
+}
+
+.upvote, .downvote {
   color:#fff;
   text-align: center;
   font-size:1rem;
   padding:1rem 0 0;
+  margin:.25rem;
   border-bottom:1px solid #222;
+}
+.upvote:hover, .downvote:hover {
+  cursor:pointer;
 }
 
 .Votes svg {
@@ -97,11 +113,11 @@
 }
 
 .Dashboard {
-  width:50%;
+  width:40%;
 }
 
 .Pools {
-  height:60%;
+  height:50%;
   display: flex;
   flex-direction: row;
   margin-bottom: 1rem;
@@ -123,7 +139,7 @@
 }
 
 .Events {
-  height:40%;
+  height:50%;
   background-color: #222;
   font-family: monospace;
 }
@@ -136,6 +152,12 @@
 
 .green {
   background: #8dc63f;
+}
+.yellow{
+  background: yellow;
+}
+.red {
+  background: red;
 }
 
 .green-event {
