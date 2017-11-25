@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import Pool from './Pool';
 import Event from './Event';
-import {processedWings as data } from './data';
+import {processedWings as mockdata } from './data';
+
+const API_URL = 'http://localhost:1337/api/events';
 
 class Dashboard extends Component {
   constructor (props) {
@@ -10,31 +12,69 @@ class Dashboard extends Component {
     this.state = {
       isLoading: false,
       error: false,
-      data: data,
-      activeEvents: [{text:'Kuubassa ukkostaa.', impact: 1}, {text:'Kuubassa ukkostaa.', impact: 5}, {text:'Kuubassa ukkostaa.', impact: 3}],
+      data: false,
+      activeEvents: [],
     }
+    // This binding is necessary to make `this` work in the callback
+    this.setActivePool = this.setActivePool.bind(this);
   }
-  updateEvents() {
-
+  componentDidMount() {
+  // fetch data from db
+  this.setState({
+    isLoading: true
+  });
+  fetch(API_URL)
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Something went wrong ...');
+      }
+    }).then(data => {
+      console.log('fetched dashboard data', data);
+      this.setState({ data, isLoading: false });
+      let pools = this.state.data.reduce((arrayOfCategories, wing) => {
+        if (arrayOfCategories[wing.categories]) {
+          arrayOfCategories[wing.categories].push(wing);
+        } else {
+          arrayOfCategories[wing.categories] = [];
+          arrayOfCategories[wing.categories].push(wing);
+        }
+        return arrayOfCategories;
+      }, []);
+      this.setState({pools: pools});
+      this.setState({activeEvents: pools['social_media']});
+    })
+    .catch(error => this.setState({ error, isLoading: false }));
+  }
+  setActivePool(data) {
+    console.log('viasd', data);
   }
   render() {
-    const pools = this.state.data.reduce((arrayOfCategories, wing) => {
-      if (arrayOfCategories[wing.category]) {
-        arrayOfCategories[wing.category].push(wing);
-      } else {
-        arrayOfCategories[wing.category] = [];
-        arrayOfCategories[wing.category].push(wing);
-      }
-      return arrayOfCategories;
-    }, []);
-    const activeEvents = this.state.activeEvents.map((e) => {
-      return <Event data={e}> </Event>;
-    });
-    const externalPools = Object.keys(pools).map((key) => {
-      return <Pool data={pools[key]}></Pool>
-    });
+    let pools = [];
+    let externalPools = [];
+    let activeEvents = [];
+    if (this.state.pools) {
+      pools = this.state.pools;
+      activeEvents = this.state.activeEvents.map((e) => {
+        return <Event data={e}> </Event>;
+      });
+      externalPools = Object.keys(pools).map((key) => {
+        return <Pool data={pools[key]} onClick={this.setActivePool.bind(pools[key])}></Pool>
+      });
+    }
+
     return (
       <div className="Dashboard">
+        <div className="Events">
+          <div className="App-header">
+            <h1>Events</h1>
+          </div>
+          { activeEvents }
+        </div>
+        <div className="App-header">
+          <h1>Status</h1>
+        </div>
         <div className="Pools">
           <div className="Lane Aircraft">
             <Pool>Mock data</Pool>
@@ -49,9 +89,6 @@ class Dashboard extends Component {
           <div className="Lane Cargo">
             <Pool></Pool>
           </div>
-        </div>
-        <div className="Events">
-          { activeEvents }
         </div>
       </div>
     );

@@ -23,10 +23,24 @@ body {
 
 .App-title {
   font-size: 3rem;
-  font-style: italic;
-  letter-spacing: 3px;
   line-height: 1;
   margin-bottom:0;
+}
+
+.Man {
+  border: 2px solid #fff;
+  padding: 1rem;
+  border-radius: 50%;
+  display: inline-block;
+  float: left;
+  width: 50px;
+  margin:1rem;
+}
+
+h4 {
+  font-weight: 200;
+  font-style: italic;
+  margin-top: .35rem;
 }
 
 .App-intro {
@@ -53,19 +67,30 @@ body {
   margin:1rem;
   font-size:13px;
   box-shadow: 1px 2px 15px rgba(0,0,0,.1);
+  display: flex;
 }
 
 .Wing-wrapper {
-  width:25%;
+  width:100%;
+}
+
+.Info {
+  width:50%;
 }
 
 .Score {
   margin:2rem 1rem;
   text-align: center;
+  width:50%;
+  align-self: center;
 }
 .Score span.desc {
   /*color: #d7797d;*/
   padding:1rem;
+}
+
+.error {
+  display:none;
 }
 
 .votes-container {
@@ -92,6 +117,7 @@ body {
 }
 .upvote:hover, .downvote:hover {
   cursor:pointer;
+  border-bottom-width:2px;
 }
 
 .Votes svg {
@@ -99,7 +125,6 @@ body {
   height:40px;
 }
 .Votes svg:hover {
-  stroke-width:5;
 }
 .upvote svg {
   fill: #d7797d;
@@ -140,8 +165,6 @@ body {
 
 .Events {
   height:50%;
-  background-color: #222;
-  font-family: monospace;
 }
 
 .Event {
@@ -152,6 +175,7 @@ body {
 
 .green {
   background: #8dc63f;
+  color:#75ca00;
 }
 .yellow{
   background: yellow;

@@ -22,7 +22,7 @@ class Event extends Component {
     }
     return (
       <div className={`Event ${statusClass}-event`}>
-        <span> {this.props.data.text} </span>
+        <span> {this.props.data.story} </span>
       </div>
     );
   }
