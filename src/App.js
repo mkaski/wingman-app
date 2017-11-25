@@ -17,7 +17,8 @@ class App extends Component {
       isLoading: false,
       error: false,
       wings: false,
-      post: false
+      post: false,
+      activeEvents: [],
     };
     this.handleWing = this.handleWing.bind(this);
   }
@@ -49,6 +50,8 @@ class App extends Component {
         return arrayOfCategories;
       }, []);
       this.setState({pools: pools});
+      console.log('rthe pools',pools);
+      this.setState({activeEvents: pools['strike']});
     })
     .catch(error => this.setState({ error, isLoading: false, wings: mockdata }));
   }
@@ -83,6 +86,7 @@ class App extends Component {
     let externalPools = [];
     let activeEvents = [];
     if (this.state.pools) {
+      activeEvents = this.state.activeEvents;
       pools = this.state.pools;
       externalPools = Object.keys(pools).map((key) => {
         return <Pool data={pools[key]}></Pool>
@@ -170,7 +174,7 @@ class App extends Component {
             {wings}
           </div>
           </div>
-          <Dashboard />
+          <Dashboard activeEvents={activeEvents} />
         </div>
     </div>);
   }
