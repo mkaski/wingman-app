@@ -33,17 +33,7 @@ class Dashboard extends Component {
     }).then(data => {
       console.log('fetched dashboard data', data);
       this.setState({ data, isLoading: false });
-      let pools = this.state.data.reduce((arrayOfCategories, wing) => {
-        if (arrayOfCategories[wing.categories]) {
-          arrayOfCategories[wing.categories].push(wing);
-        } else {
-          arrayOfCategories[wing.categories] = [];
-          arrayOfCategories[wing.categories].push(wing);
-        }
-        return arrayOfCategories;
-      }, []);
-      this.setState({pools: pools});
-      this.setState({activeEvents: pools['social_media']});
+
     })
     .catch(error => this.setState({ error, isLoading: false }));
   }
@@ -51,46 +41,22 @@ class Dashboard extends Component {
     console.log('viasd', data);
   }
   render() {
-    let pools = [];
-    let externalPools = [];
     let activeEvents = [];
-    if (this.state.pools) {
-      pools = this.state.pools;
+    if (this.state.activeEvents) {
       activeEvents = this.state.activeEvents.map((e) => {
         return <Event data={e}> </Event>;
-      });
-      externalPools = Object.keys(pools).map((key) => {
-        return <Pool data={pools[key]} onClick={this.setActivePool.bind(pools[key])}></Pool>
       });
     }
 
     return (
-      <div className="Dashboard">
-        <div className="Events">
-          <div className="App-header">
-            <h1>Events</h1>
-          </div>
-          { activeEvents }
-        </div>
-        <div className="App-header">
-          <h1>Status</h1>
-        </div>
-        <div className="Pools">
-          <div className="Lane Aircraft">
-            <Pool>Mock data</Pool>
-          </div>
-          <div className="Lane External">
-            <Pool></Pool>
-            { externalPools }
-          </div>
-          <div className="Lane Resources">
-            <Pool></Pool>
-          </div>
-          <div className="Lane Cargo">
-            <Pool></Pool>
+        <div className="Dashboard">
+          <div className="Events">
+            <div className="App-header">
+              <h1>Events</h1>
+            </div>
+            { activeEvents }
           </div>
         </div>
-      </div>
     );
   }
 }

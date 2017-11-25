@@ -5,9 +5,13 @@ body {
 }
 
 .App {
+  height: 100vh;
+  position: relative;
+}
+
+.container {
   display: flex;
   flex-direction: row;
-  height: 100vh;
 }
 
 .App-logo {
@@ -142,11 +146,9 @@ h4 {
 }
 
 .Pools {
-  height:50%;
   display: flex;
   flex-direction: row;
   margin-bottom: 1rem;
-  overflow-y: scroll;
 }
 
 .Lane {
@@ -157,18 +159,46 @@ h4 {
   margin:1rem;
   border-radius:5px;
   background:#f0f0f0;
-  height:50px;
+  height:20px;
 }
 
 .Button {
 }
 
 .Events {
-  height:50%;
 }
 
 .Event {
   padding:1rem;
+}
+
+.Status {
+  position: fixed;
+  bottom: 0;
+  left:0;
+  width:100%;
+  z-index: 10;
+  background: #fff;
+  margin-bottom: -120px;
+  transition: margin .5s;
+  box-shadow: -3px -5px 20px rgba(0,0,0,.15);
+  text-align: center;
+}
+
+.Status > h2 {
+  margin:0;
+  font-weight: bold;
+  font-size:1.1em;
+  margin:.25rem;
+  color:#0d1973;
+}
+
+.Status h5 {
+  margin-top:0;
+}
+
+.Status:hover {
+  margin-bottom:0;
 }
 
 /* statuses */

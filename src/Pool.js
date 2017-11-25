@@ -4,8 +4,7 @@ class Pool extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      data: this.props.data,
-      status: 0,
+      data: this.props.data
     };
   }
   updateEvents() {
@@ -37,6 +36,7 @@ class Pool extends Component {
     }
     return (
       <div className={`Pool Button ${statusClass}`} onClick={this.props.updateEvents}>
+
       </div>
     );
   }
