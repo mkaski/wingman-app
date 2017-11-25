@@ -1,6 +1,7 @@
 .App {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  height: 100vh;
 }
 
 .App-logo {
@@ -9,14 +10,15 @@
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+  padding: 10px;
   color: white;
+  background: #0d1973;
 }
 
 .App-title {
-  font-size: 1.5em;
+  font-size: 3rem;
+  font-style: italic;
+  letter-spacing: 3px;
 }
 
 .App-intro {
@@ -24,16 +26,124 @@
 }
 
 .Wingman {
-  width:40%;
+  width:50%;
   background: #f1f4f7;
   color: #0d1973;
+  overflow-y: scroll;
+}
+
+.Wings {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.Wing {
+  border-radius:5px;
+  background:#fff;
+  padding:1rem;
+  margin:1rem;
+  font-size:13px;
+}
+
+.Wing-wrapper {
+  width:50%;
+}
+
+.Score {
+  margin:3rem 2rem;
+  text-align: center;
+}
+.Score span.desc {
+  /*color: #d7797d;*/
+  padding:1rem;
+}
+
+.votes-container {
+  display: relative !important;
+}
+
+.Votes {
+  width:100%;
+  margin-top:4rem 0 1rem;
+}
+
+.upvote, .downvote {
+  display: inline-block;
+  width:50%;
+  color:#fff;
+  text-align: center;
+  font-size:1rem;
+  padding:1rem 0 0;
+  border-bottom:1px solid #222;
+}
+
+.Votes svg {
+  width:40px;
+  height:40px;
+}
+.Votes svg:hover {
+  stroke-width:5;
+}
+.upvote svg {
+  fill: #d7797d;
+}
+
+.downvote svg {
+  stroke: #222;
+  fill: transparent;
+  stroke-linecap: round;
+  stroke-width: 2;
 }
 
 .Dashboard {
-  width:60%;
+  width:50%;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.Pools {
+  height:60%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+  overflow-y: scroll;
+}
+
+.Lane {
+  width:25%;
+}
+
+.Pool {
+  margin:1rem;
+  border-radius:5px;
+  background:#f0f0f0;
+  height:50px;
+}
+
+.Button {
+}
+
+.Events {
+  height:40%;
+  background-color: #222;
+  font-family: monospace;
+}
+
+.Event {
+  padding:1rem;
+}
+
+/* statuses */
+
+.green {
+  background: #8dc63f;
+}
+
+.green-event {
+  color: #8dc63f;
+}
+.yellow-event {
+  color: yellow;
+}
+.red-event {
+  color: red;
 }

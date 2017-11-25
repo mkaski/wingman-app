@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 
 class Pool extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      data: false,
+      status: 0,
+    };
+  }
+  updateEvents() {
+
+  }
   render() {
-    let pool = this.props.pool;
-    console.log(pool);
-    const events = pool.events.tags.map((t) => {
-      console.log(e);
-      return <span> {e} </span>;
-    });
+    // 0,1,2 map to colors
+    const statusClass = 'green';
     return (
-      <div className="Pool">
-        { events }
+      <div className={`Pool Button ${statusClass}`} onClick={this.props.updateEvents}>
       </div>
     );
   }
