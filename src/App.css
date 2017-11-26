@@ -74,6 +74,13 @@ h4 {
   display: flex;
 }
 
+.flight {
+  background: #c0c0c0;
+  border-radius: 5px;
+  padding:5px;
+  margin-left:5px;
+}
+
 .Wing-wrapper {
   width:100%;
 }
@@ -205,13 +212,18 @@ h4 {
 
 .green {
   background: #8dc63f;
-  color:#75ca00;
+  color:#fff;
+  background: linear-gradient(to bottom, #d2ff52 0%, #75ca00; 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 .yellow{
   background: yellow;
 }
 .red {
   background: red;
+}
+
+.gray {
+  background: #ccc;
 }
 
 .green-event {

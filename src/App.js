@@ -4,6 +4,7 @@ import './App.css';
 import Dashboard from './Dashboard';
 import Wing from './Wing';
 import {wings as mockdata } from './data';
+import {subscribeToTimer} from './socketapi';
 
 import Pool from './Pool';
 import Event from './Event';
@@ -12,48 +13,18 @@ const API_URL = 'http://localhost:1337/api/wings';
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       isLoading: false,
       error: false,
-      wings: false,
       post: false,
       activeEvents: [],
+      wings: [],
     };
+    subscribeToTimer((err, wings) => {
+      this.setState({ wings });
+    });
     this.handleWing = this.handleWing.bind(this);
-  }
-  deleteWing(id) {
-    delete this.state.wings[id];
-  }
-  componentDidMount() {
-  // fetch data from db
-  this.setState({
-    isLoading: true
-  });
-  fetch(API_URL)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error('Something went wrong ...');
-      }
-    }).then(data => {
-      console.log('fetched data', data);
-      this.setState({ wings: data, isLoading: false });
-      let pools = this.state.wings.reduce((arrayOfCategories, wing) => {
-        if (arrayOfCategories[wing.categories]) {
-          arrayOfCategories[wing.categories].push(wing);
-        } else {
-          arrayOfCategories[wing.categories] = [];
-          arrayOfCategories[wing.categories].push(wing);
-        }
-        return arrayOfCategories;
-      }, []);
-      this.setState({pools: pools});
-      console.log('rthe pools',pools);
-      this.setState({activeEvents: pools['strike']});
-    })
-    .catch(error => this.setState({ error, isLoading: false, wings: mockdata }));
   }
   handleWing(wing, status) {
     // send wing to backend
@@ -77,19 +48,31 @@ class App extends Component {
   }
   render() {
     let wings = [];
-    if (!this.state.isLoading && this.state.wings) {
-      wings = this.state.wings.map((wing) => {
+    let pools = [];
+    let activeEvents = [];
+    let externalPools = [];
+    if (this.state.wings.length) {
+      wings = this.state.wings.filter(w => w.status === 'waiting');
+      console.log(wings);
+
+      wings = wings.map((wing) => {
         return <Wing data={wing} handleWing={this.handleWing} />
       });
+      pools = this.state.wings.reduce((arrayOfCategories, wing) => {
+        if (arrayOfCategories[wing.categories]) {
+          arrayOfCategories[wing.categories].push(wing);
+        } else {
+          arrayOfCategories[wing.categories] = [];
+          arrayOfCategories[wing.categories].push(wing);
+        }
+        return arrayOfCategories;
+      }, []);
+      activeEvents = pools['weather'];
+      activeEvents = activeEvents.filter((e) => e.status === 'accepted');
     }
-    let pools = [];
-    let externalPools = [];
-    let activeEvents = [];
-    if (this.state.pools) {
-      activeEvents = this.state.activeEvents;
-      pools = this.state.pools;
+    if (pools) {
       externalPools = Object.keys(pools).map((key) => {
-        return <Pool data={pools[key]}></Pool>
+        return <Pool data={pools[key]} title={key}></Pool>
       });
     }
     return (
@@ -105,7 +88,6 @@ class App extends Component {
             </div>
             <div className="Lane External">
               <h5>External factors</h5>
-              <Pool></Pool>
               { externalPools }
             </div>
             <div className="Lane Resources">
@@ -164,12 +146,11 @@ class App extends Component {
   </svg>
 
             <h1 className="App-title">WINGMAN</h1>
-            <h4>air traffic enhanching suggestions</h4>
+            <h4>air traffic enhancing suggestions</h4>
           </header>
           <div className="error">
             {this.state.error.toString()}
           </div>
-
           <div className="Wings">
             {wings}
           </div>

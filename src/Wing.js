@@ -12,7 +12,6 @@ class Wing extends Component {
     if (url) {
       url = (<p><a href={wing.url}>Read more</a></p>)
     }
-    console.log('wing',wing);
     return (
       <div className="Wing-wrapper">
         <div className="Wing">
@@ -21,6 +20,10 @@ class Wing extends Component {
             <h2>{wing.heading}</h2>
             {wing.story}
             {url}
+            <p><b>Flights affected: </b>
+              <span className="flight">AY1301</span>
+              <span className="flight">AY666</span>
+            </p>
           </div>
           <div className="Score">
             <InputRange

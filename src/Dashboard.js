@@ -21,7 +21,7 @@ class Dashboard extends Component {
         <div className="Dashboard">
           <div className="Events">
             <div className="App-header">
-              <h1>Events</h1>
+              <h1>Notable events: Weather</h1>
             </div>
             { activeEvents }
           </div>

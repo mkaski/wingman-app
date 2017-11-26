@@ -12,11 +12,10 @@ class Pool extends Component {
   }
   render() {
     // 0,1,2 map to colors
-    let statusClass = 'green';
-    let impact = 1;
+    let statusClass = 'gray';
+    let title = this.props.title || '';
     if (this.props.data) {
       this.props.data.forEach((w) => {
-        console.log('w',w.impact);
         switch (w.impact) {
           case 0:
           case 1:
@@ -29,14 +28,15 @@ class Pool extends Component {
             statusClass = 'red'
             break;
           default:
-            statusClass = 'green'
+            statusClass = 'gray'
             break;
         }
       });
     }
     return (
-      <div className={`Pool Button ${statusClass}`} onClick={this.props.updateEvents}>
 
+      <div className={`Pool Button ${statusClass}`} onClick={this.props.updateEvents}>
+        { title }
       </div>
     );
   }
